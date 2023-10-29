@@ -3,6 +3,8 @@ pants_version = "2.17.0"
 
 backend_packages = [
     "pants.backend.python",
+    "pants.backend.codegen.protobuf.python",
+    "pants.backend.docker",
 ]
 
 [python]
@@ -11,4 +13,5 @@ interpreter_constraints = [">=3.11,<3.12"]
 [source]
 root_patterns = [
     "/src/python/*",
+    "/src/protos",
 ]
