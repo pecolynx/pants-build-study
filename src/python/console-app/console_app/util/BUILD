@@ -1,1 +1,5 @@
-python_sources()
+python_sources(
+    dependencies=[
+        "src/python/console-app:poetry#pendulum",
+    ]
+)
