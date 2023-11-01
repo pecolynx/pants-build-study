@@ -1,5 +1,6 @@
 poetry_requirements(
     name="poetry",
+    resolve="old_app",
 )
 
 python_sources(
