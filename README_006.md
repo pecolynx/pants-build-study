@@ -53,6 +53,35 @@ Use lockfile to specify version for each application.
 
 https://www.pantsbuild.org/docs/python-lockfiles
 
+
+```toml
+cat <<EOF > pants.toml
+[GLOBAL]
+pants_version = "2.17.0"
+
+backend_packages = [
+    "pants.backend.python",
+    "pants.backend.codegen.protobuf.python",
+    "pants.backend.docker",
+]
+
+[python]
+interpreter_constraints = [">=3.11,<3.12"]
+enable_resolves = true
+default_resolve = "default"
+
+[python.resolves]
+default = "3rdparty/python/default.lock"
+old_app = "3rdparty/python/old_app.lock"
+
+[source]
+root_patterns = [
+    "/src/python/*",
+    "/src/protos",
+]
+EOF
+```
+
 Add `resolve="old_app",` to `poetry_requirements` target in `src/python/old-app/BUILD` file.
 
 ```
@@ -139,4 +168,8 @@ The below is the header of `3rdparty/pyhon/old_app.lock` file.
 //   "no_binary": []
 // }
 // --- END PANTS LOCKFILE METADATA ---
+```
+
+```
+pants package ::
 ```

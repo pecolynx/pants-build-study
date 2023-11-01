@@ -12,7 +12,6 @@ interpreter_constraints = [">=3.11,<3.12"]
 enable_resolves = true
 default_resolve = "default"
 
-
 [python.resolves]
 default = "3rdparty/python/default.lock"
 old_app = "3rdparty/python/old_app.lock"
