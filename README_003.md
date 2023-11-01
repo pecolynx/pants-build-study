@@ -40,7 +40,7 @@ cd ../../../
 
 Write source code: `src/python/console2-app/console2_app/main.py`.
 
-```shell
+```python
 cat <<EOF > src/python/console2-app/console2_app/main.py
 from console2_app.util.util import now
 
@@ -54,7 +54,9 @@ Write source code: `src/python/console2-app/console2_app/util/util.py`.
 
 ```shell
 mkdir -p src/python/console2-app/console2_app/util
+```
 
+```python
 cat <<EOF > src/python/console2-app/console2_app/util/util.py
 import pendulum
 

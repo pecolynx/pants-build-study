@@ -61,7 +61,7 @@ deactivate
 
 Write source code: `src/python/console-app/console_app/main.py`.
 
-```shell
+```python
 cat <<EOF > console_app/main.py
 from console_app.util.util import now
 
@@ -75,7 +75,9 @@ Write source code: `src/python/console-app/console_app/util/util.py`.
 
 ```shell
 mkdir -p console_app/util
+```
 
+```python
 cat <<EOF > console_app/util/util.py
 import pendulum
 
@@ -90,7 +92,7 @@ cd ../../../
 
 ### Create `pants.toml`
 
-```shell
+```toml
 cat <<EOF > pants.toml
 [GLOBAL]
 pants_version = "2.17.0"

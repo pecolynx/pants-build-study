@@ -22,7 +22,7 @@ cd ../../../
 
 Create proto file.
 
-```shell
+```proto
 mkdir -p src/protos/helloworld/v1
 cat <<EOF > src/protos/helloworld/v1/helloworld.proto
 // Copyright 2015 gRPC authors.
@@ -74,7 +74,7 @@ Add `"pants.backend.codegen.protobuf.python",` to `backend_packages` in `GLOBAL`
 
 Add `"/src/protos",` to `root_patterns` in `source` section.
 
-```shell
+```toml
 cat <<EOF > pants.toml
 [GLOBAL]
 pants_version = "2.17.0"
@@ -120,13 +120,14 @@ protobuf_sources(
 EOF
 ```
 
-```shell
+```python
 cat <<EOF >  src/python/grpc-server/grpc_server/main.py
 from helloworld.v1.helloworld_pb2_grpc import GreeterServicer
 
 print(GreeterServicer())
 EOF
 ```
+
 Create `BUILD` files using `pants tailor` command.
 
 ```shell
@@ -145,21 +146,25 @@ pants run src/python/grpc-server/grpc_server/main.py
 ```
 
 
-```shell
+```python
 cat <<EOF > src/python/grpc-server/grpc_server/main.py
 from concurrent import futures
 
 import grpc
-from helloworld.v1 import helloworld_pb2_grpc
+from helloworld.v1 import helloworld_pb2, helloworld_pb2_grpc
 
 
-if __name__ == "__main__":
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    helloworld_pb2_grpc.add_GreeterServicer_to_server(helloworld_pb2_grpc.GreeterServicer(), server)
-    server.add_insecure_port(f"[::]:50052")
-    server.start()
-    print('gRPC server listening at :50052')
-    server.wait_for_termination()
+class GreeterServicer(helloworld_pb2_grpc.GreeterServicer):
+    def SayHello(self, request: helloworld_pb2.HelloRequest, context: grpc.ServicerContext) -> helloworld_pb2.HelloReply:
+        return helloworld_pb2.HelloReply(message=f"Hello, {request.name}")
+
+
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+helloworld_pb2_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
+server.add_insecure_port(f"[::]:50052")
+server.start()
+print('gRPC server listening at :50052')
+server.wait_for_termination()
 EOF
 ```
 
@@ -226,7 +231,7 @@ ls dist/src.python.grpc-server/grpc-server.pex
 
 Write Docker file.
 
-```shell
+```dockerfile
 cat <<EOF > src/python/grpc-server/Dockerfile
 FROM python:3.11.2-slim-buster
 
@@ -240,7 +245,7 @@ EOF
 
 Add `"pants.backend.docker",` to `pants.toml`.
 
-```shell
+```toml
 cat <<EOF > pants.toml
 [GLOBAL]
 pants_version = "2.17.0"
@@ -302,7 +307,7 @@ EOF
 
 Build a docker image.
 
-```
+```shell
 pants package ::
 ```
 

@@ -23,7 +23,7 @@ cd ../../../
 
 Write source code: `src/python/old-app/old_app/main.py`.
 
-```shell
+```python
 cat <<EOF > src/python/old-app/old_app/main.py
 from old_app.util.util import now
 
@@ -37,7 +37,9 @@ Write source code: `src/python/old-app/old_app/util/util.py`.
 
 ```shell
 mkdir -p src/python/old-app/old_app/util
+```
 
+```python
 cat <<EOF > src/python/old-app/old_app/util/util.py
 import pendulum
 
@@ -69,7 +71,7 @@ pants run src/python/old-app/old_app/main.py
 
 
 
-```
+```shell
 cat <<EOF > src/python/old-app/BUILD
 poetry_requirements(
     name="poetry",
@@ -98,7 +100,7 @@ rm -rf dist
 pants package ::
 ```
 
-```
+```shell
 cd dist/src.python.old-app
 unzip unzip old-app.pex
 ls .deps
@@ -112,6 +114,6 @@ pytzdata-2020.1-py2.py3-none-any.whl
 six-1.16.0-py2.py3-none-any.whl
 ```
 
-```
+```shell
 cd ../../
 ```
