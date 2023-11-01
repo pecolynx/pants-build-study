@@ -15,6 +15,7 @@ default_resolve = "default"
 [python.resolves]
 default = "3rdparty/python/default.lock"
 old_app = "3rdparty/python/old_app.lock"
+grpc_client = "3rdparty/python/grpc_client.lock"
 
 [source]
 root_patterns = [

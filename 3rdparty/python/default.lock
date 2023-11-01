@@ -9,7 +9,6 @@
 //     "CPython<3.12,>=3.11"
 //   ],
 //   "generated_with_requirements": [
-//     "grpc-stubs<2.0.0,>=1.53.0.3",
 //     "grpcio<2.0.0,>=1.59.0",
 //     "pendulum<3.0.0,>=2.1.2",
 //     "protobuf<5.0.0,>=4.24.4"
@@ -30,26 +29,6 @@
   "locked_resolves": [
     {
       "locked_requirements": [
-        {
-          "artifacts": [
-            {
-              "algorithm": "sha256",
-              "hash": "312c3c697089344936c9779118a105bcc4ccc8eef053265f3f23086acdba2683",
-              "url": "https://files.pythonhosted.org/packages/9d/57/15d6889a63e29f41bc7ab281a3221ceaeda18ffe0e766545ae127ea7839e/grpc_stubs-1.53.0.3-py3-none-any.whl"
-            },
-            {
-              "algorithm": "sha256",
-              "hash": "6e5d75cdc88c0ba918e2f8395851f1e6a7c19a7c7fc3e902bde4601c7a1cbf96",
-              "url": "https://files.pythonhosted.org/packages/4e/d0/4fec14be8222373f067f41720f4b69792c31c4c4a5eea1a4e2d390b7a39f/grpc-stubs-1.53.0.3.tar.gz"
-            }
-          ],
-          "project_name": "grpc-stubs",
-          "requires_dists": [
-            "grpcio"
-          ],
-          "requires_python": ">=3.6",
-          "version": "1.53.0.3"
-        },
         {
           "artifacts": [
             {
@@ -215,7 +194,6 @@
   "pip_version": "23.1.2",
   "prefer_older_binary": false,
   "requirements": [
-    "grpc-stubs<2.0.0,>=1.53.0.3",
     "grpcio<2.0.0,>=1.59.0",
     "pendulum<3.0.0,>=2.1.2",
     "protobuf<5.0.0,>=4.24.4"
