@@ -19,7 +19,9 @@ pants peek src/python/console-app/console_app/util/util.py
     ],
 ```
 
-Create `-app` using poetry.
+You can see that `console-app` depends on `src/python/console-app:poetry#pendulum`.
+
+Create `console2-app` using poetry.
 
 ```shell
 cd src/python
@@ -70,7 +72,7 @@ EOF
 pants tailor ::
 ```
 
-```
+```shell
 pants run src/python/console-app/console_app/main.py
 ```
 
@@ -90,6 +92,7 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'pendulum'
 ```
 
+Why did you get the above error?
 
 
 ### Check dependencies of `console-app` again
@@ -98,7 +101,7 @@ ModuleNotFoundError: No module named 'pendulum'
 pants peek src/python/console-app/console_app/util/util.py
 ```
 
-dependencies are missing.
+You can see that dependencies are missing.
 
 **Output:**
 ```
@@ -109,7 +112,7 @@ dependencies are missing.
     "dependencies": [],
 ```
 
-Update `src/python/console-app/console_app/util/BUILD` file.
+To fix this issue, update `src/python/console-app/console_app/util/BUILD` file.
 
 ```shell
 cat <<EOF > src/python/console-app/console_app/util/BUILD
@@ -123,7 +126,7 @@ EOF
 
 Also update `src/python/console2-app/console2_app/util/BUILD` file.
 
-```
+```shell
 cat <<EOF > src/python/console2-app/console2_app/util/BUILD
 python_sources(
     dependencies=[
@@ -133,9 +136,7 @@ python_sources(
 EOF
 ```
 
-
-
-```
+```shell
 pants run src/python/console-app/console_app/main.py
 ```
 
@@ -145,3 +146,5 @@ pants run src/python/console-app/console_app/main.py
 console-app
 2023-10-30T16:40:33.634042+01:00
 ```
+
+Succeeded!
