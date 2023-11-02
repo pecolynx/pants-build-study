@@ -77,19 +77,9 @@ poetry_requirements(
     name="poetry",
 )
 
-python_sources(
-    name="src",
-    dependencies=[
-        "src/python/old-app/old_app/**/*.py",
-    ]
-)
-
 pex_binary(
     name="old-app",
     entry_point="old_app/main.py",
-    dependencies=[
-        ":src",
-    ],
 )
 EOF
 ```
@@ -102,7 +92,7 @@ pants package ::
 
 ```shell
 cd dist/src.python.old-app
-unzip unzip old-app.pex
+unzip old-app.pex
 ls .deps
 ```
 
