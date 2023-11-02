@@ -32,7 +32,6 @@ venv
 /.pants.*
 /dist/
 /.pids
-
 EOF
 ```
 
