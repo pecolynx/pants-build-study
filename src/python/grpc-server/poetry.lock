@@ -88,7 +88,18 @@ files = [
     {file = "protobuf-4.24.4.tar.gz", hash = "sha256:5a70731910cd9104762161719c3d883c960151eea077134458503723b60e3667"},
 ]
 
+[[package]]
+name = "types-protobuf"
+version = "4.24.0.4"
+description = "Typing stubs for protobuf"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "types-protobuf-4.24.0.4.tar.gz", hash = "sha256:57ab42cb171dfdba2c74bb5b50c250478538cc3c5ed95b8b368929ad0c9f90a5"},
+    {file = "types_protobuf-4.24.0.4-py3-none-any.whl", hash = "sha256:131ab7d0cbc9e444bc89c994141327dcce7bcaeded72b1acb72a94827eb9c7af"},
+]
+
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.10"
-content-hash = "e79fd6bf18b66858223aa1e4244d16a3745067b7fbe557e23dae980569912f58"
+python-versions = "^3.11"
+content-hash = "650b5c874388da8b16f53af25934dddf647c1e1782a7cddce88034c219a2aa69"

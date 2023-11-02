@@ -22,8 +22,11 @@ cd ../../../
 
 Create proto file.
 
-```proto
+```shell
 mkdir -p src/protos/helloworld/v1
+```
+
+```proto
 cat <<EOF > src/protos/helloworld/v1/helloworld.proto
 // Copyright 2015 gRPC authors.
 //
@@ -52,10 +55,6 @@ option objc_class_prefix = "HLW";
 service Greeter {
   // Sends a greeting
   rpc SayHello(HelloRequest) returns (HelloReply) {}
-
-  rpc SayHelloStreamReply(HelloRequest) returns (stream HelloReply) {}
-
-  rpc SayHelloBidiStream(stream HelloRequest) returns (stream HelloReply) {}
 }
 
 // The request message containing the user's name.
