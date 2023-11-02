@@ -2,7 +2,7 @@
 
 ## 002. Second application
 
-Create `grpc-server` using poetry.
+### Create `grpc-server` using poetry.
 
 ```shell
 cd src/python
@@ -20,7 +20,7 @@ deactivate
 cd ../../../
 ```
 
-Create proto file.
+### Create proto file.
 
 ```shell
 mkdir -p src/protos/helloworld/v1
@@ -69,9 +69,12 @@ message HelloReply {
 EOF
 ```
 
-Add `"pants.backend.codegen.protobuf.python",` to `backend_packages` in `GLOBAL` section.
+### Update configurations.
 
-Add `"/src/protos",` to `root_patterns` in `source` section.
+Update `pants.toml` for generating source files from proto files.
+
+* Add `"pants.backend.codegen.protobuf.python",` to `backend_packages` in `GLOBAL` section.
+* Add `"/src/protos",` to `root_patterns` in `source` section.
 
 ```toml
 cat <<EOF > pants.toml
@@ -108,7 +111,6 @@ Created src/python/grpc-server/BUILD:
   - Add poetry_requirements target poetry
 ```
 
-
 Update `BUILD` file.
 
 ```shell
@@ -119,8 +121,10 @@ protobuf_sources(
 EOF
 ```
 
+### Write initial source codes
+
 ```python
-cat <<EOF >  src/python/grpc-server/grpc_server/main.py
+cat <<EOF > src/python/grpc-server/grpc_server/main.py
 from helloworld.v1.helloworld_pb2_grpc import GreeterServicer
 
 print(GreeterServicer())
@@ -144,6 +148,7 @@ pants run src/python/grpc-server/grpc_server/main.py
 <helloworld.v1.helloworld_pb2_grpc.GreeterServicer object at 0x7fd0a35057d0>
 ```
 
+### Update source codes
 
 ```python
 cat <<EOF > src/python/grpc-server/grpc_server/main.py
@@ -154,15 +159,17 @@ from helloworld.v1 import helloworld_pb2, helloworld_pb2_grpc
 
 
 class GreeterServicer(helloworld_pb2_grpc.GreeterServicer):
-    def SayHello(self, request: helloworld_pb2.HelloRequest, context: grpc.ServicerContext) -> helloworld_pb2.HelloReply:
+    def SayHello(
+        self, request: helloworld_pb2.HelloRequest, context: grpc.ServicerContext
+    ) -> helloworld_pb2.HelloReply:
         return helloworld_pb2.HelloReply(message=f"Hello, {request.name}")
 
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 helloworld_pb2_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
-server.add_insecure_port(f"[::]:50052")
+server.add_insecure_port("[::]:50052")
 server.start()
-print('gRPC server listening at :50052')
+print("gRPC server listening at :50052")
 server.wait_for_termination()
 EOF
 ```
@@ -188,19 +195,9 @@ poetry_requirements(
     name="poetry",
 )
 
-python_sources(
-    name="src",
-    dependencies=[
-        "src/python/grpc-server/grpc_server/**/*.py",
-    ]
-)
-
 pex_binary(
     name="grpc-server",
     entry_point="grpc_server/main.py",
-    dependencies=[
-        ":src",
-    ],
 )
 EOF
 ```

@@ -29,6 +29,10 @@ Write `.gitignore`.
 ```
 cat <<EOF > .gitignore
 venv
+/.pants.*
+/dist/
+/.pids
+
 EOF
 ```
 
@@ -150,9 +154,6 @@ Add below `pex_binary` target to `src/python/console-app/BUILD`.
 pex_binary(
     name="console-app",
     entry_point="console_app/main.py",
-    dependencies=[
-        ":src",
-    ],
 )
 ```
 
@@ -163,19 +164,9 @@ poetry_requirements(
     name="poetry",
 )
 
-python_sources(
-    name="src",
-    dependencies=[
-        "src/python/console-app/console_app/**/*.py",
-    ]
-)
-
 pex_binary(
     name="console-app",
     entry_point="console_app/main.py",
-    dependencies=[
-        ":src",
-    ],
 )
 EOF
 ```
