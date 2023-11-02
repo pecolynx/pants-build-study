@@ -99,7 +99,7 @@ EOF
 
 Create `BUILD` files using `pants tailor` command.
 
-```
+```shell
 pants tailor ::
 ```
 
@@ -111,7 +111,7 @@ Created src/python/grpc-server/BUILD:
   - Add poetry_requirements target poetry
 ```
 
-Update `BUILD` file.
+Update `BUILD` file to generate gRPC source files.
 
 ```shell
 cat <<EOF > src/protos/helloworld/v1/BUILD
@@ -174,6 +174,8 @@ server.wait_for_termination()
 EOF
 ```
 
+### Run gRPC server
+
 ```shell
 pants run src/python/grpc-server/grpc_server/main.py
 ```
@@ -185,6 +187,8 @@ gRPC server listening at :50052
 
 Exec `Ctrl+C` command to stop the server application.
 
+
+### Create Docker image
 
 Update `BUILD` file: `src/python/grpc-server/BUILD`.
 
@@ -201,7 +205,6 @@ pex_binary(
 )
 EOF
 ```
-
 
 ```shell
 rm -rf dist
@@ -239,7 +242,7 @@ ENTRYPOINT ["/bin/bash", "-c", "/opt/app/grpc_server.pex"]
 EOF
 ```
 
-Add `"pants.backend.docker",` to `pants.toml`.
+Add `"pants.backend.docker",` to `backend_packages` in `GLOBAL` section in `pants.toml`.
 
 ```toml
 cat <<EOF > pants.toml
