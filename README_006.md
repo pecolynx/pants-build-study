@@ -2,7 +2,7 @@
 
 ## 006. 
 
-Add the below line to `pants.toml` file.
+Add the below line to `python` section in `pants.toml` file.
 
 ```
 enable_resolves = true
@@ -31,7 +31,9 @@ root_patterns = [
 EOF
 ```
 
-```
+### Generate lockfiles
+
+```shell
 pants generate-lockfiles ::
 ```
 
@@ -49,10 +51,11 @@ pants generate-lockfiles ::
  2. remove package versions to allow pip attempt to solve the dependency conflict
 ```
 
-Use lockfile to specify version for each application.
+Use lockfile to specify version for each requirement set.
 
 https://www.pantsbuild.org/docs/python-lockfiles
 
+### Generate lockfiles for old_app and others
 
 ```toml
 cat <<EOF > pants.toml
@@ -82,30 +85,8 @@ root_patterns = [
 EOF
 ```
 
-Add `resolve="old_app",` to `poetry_requirements` target in `src/python/old-app/BUILD` file.
-
-```
-cat <<EOF > src/python/old-app/BUILD
-poetry_requirements(
-    name="poetry",
-    resolve="old_app",
-)
-
-python_sources(
-    name="src",
-    dependencies=[
-        "src/python/old-app/old_app/**/*.py",
-    ]
-)
-
-pex_binary(
-    name="old-app",
-    entry_point="old_app/main.py",
-    dependencies=[
-        ":src",
-    ],
-)
-EOF
+```shell
+pants generate-lockfiles ::
 ```
 
 **Output:**
@@ -169,6 +150,47 @@ The below is the header of `3rdparty/pyhon/old_app.lock` file.
 // }
 // --- END PANTS LOCKFILE METADATA ---
 ```
+
+Add `resolve="old_app",` to `poetry_requirements` and `pex_binary` target in `src/python/old-app/BUILD` file.
+
+
+```shell
+cat <<EOF > src/python/old-app/BUILD
+poetry_requirements(
+    name="poetry",
+    resolve="old_app",
+)
+
+pex_binary(
+    name="old-app",
+    resolve="old_app",
+    entry_point="old_app/main.py",
+)
+EOF
+```
+
+
+Add `resolve="old_app",` to `python_sources` target in all `BUILD` file.
+
+
+
+```shell
+cat <<EOF > src/python/old-app/old_app/BUILD
+python_sources(
+    resolve="old_app",
+)
+EOF
+```
+
+```shell
+cat <<EOF > src/python/old-app/old_app/util/BUILD
+python_sources(
+    resolve="old_app",
+)
+EOF
+```
+
+
 
 ```
 pants package ::
