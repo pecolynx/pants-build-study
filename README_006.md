@@ -51,6 +51,8 @@ pants generate-lockfiles ::
  2. remove package versions to allow pip attempt to solve the dependency conflict
 ```
 
+
+
 Use lockfile to specify version for each requirement set.
 
 https://www.pantsbuild.org/docs/python-lockfiles
@@ -82,6 +84,44 @@ root_patterns = [
     "/src/python/*",
     "/src/protos",
 ]
+EOF
+```
+
+
+Add `resolve="old_app",` to `poetry_requirements` and `pex_binary` target in `src/python/old-app/BUILD` file.
+
+
+```shell
+cat <<EOF > src/python/old-app/BUILD
+poetry_requirements(
+    name="poetry",
+    resolve="old_app",
+)
+
+pex_binary(
+    name="old-app",
+    resolve="old_app",
+    entry_point="old_app/main.py",
+)
+EOF
+```
+
+
+Add `resolve="old_app",` to `python_sources` target in all `BUILD` file.
+
+```shell
+cat <<EOF > src/python/old-app/old_app/BUILD
+python_sources(
+    resolve="old_app",
+)
+EOF
+```
+
+```shell
+cat <<EOF > src/python/old-app/old_app/util/BUILD
+python_sources(
+    resolve="old_app",
+)
 EOF
 ```
 
@@ -150,47 +190,6 @@ The below is the header of `3rdparty/pyhon/old_app.lock` file.
 // }
 // --- END PANTS LOCKFILE METADATA ---
 ```
-
-Add `resolve="old_app",` to `poetry_requirements` and `pex_binary` target in `src/python/old-app/BUILD` file.
-
-
-```shell
-cat <<EOF > src/python/old-app/BUILD
-poetry_requirements(
-    name="poetry",
-    resolve="old_app",
-)
-
-pex_binary(
-    name="old-app",
-    resolve="old_app",
-    entry_point="old_app/main.py",
-)
-EOF
-```
-
-
-Add `resolve="old_app",` to `python_sources` target in all `BUILD` file.
-
-
-
-```shell
-cat <<EOF > src/python/old-app/old_app/BUILD
-python_sources(
-    resolve="old_app",
-)
-EOF
-```
-
-```shell
-cat <<EOF > src/python/old-app/old_app/util/BUILD
-python_sources(
-    resolve="old_app",
-)
-EOF
-```
-
-
 
 ```
 pants package ::
