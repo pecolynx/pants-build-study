@@ -15,8 +15,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - uses: pantsbuild/actions/init-pants@v5-scie-pants
       - name: Test
-        run: "pants -V"
-      - name: Test
         run: "pants test ::"
       - name: Coverage
         uses: codecov/codecov-action@v3
