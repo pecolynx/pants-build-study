@@ -2,7 +2,9 @@
 
 ## 004. Fourth application
 
-Create `old-app` using poetry.
+Use different versions of `pendulum`.
+
+### Create `old-app` using poetry.
 
 ```shell
 cd src/python
@@ -103,6 +105,8 @@ python_dateutil-2.8.2-py2.py3-none-any.whl
 pytzdata-2020.1-py2.py3-none-any.whl
 six-1.16.0-py2.py3-none-any.whl
 ```
+
+You can see that `old-app` refers `2.0.4` of `pendulum`.
 
 ```shell
 cd ../../

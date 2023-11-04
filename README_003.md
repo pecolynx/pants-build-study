@@ -2,6 +2,8 @@
 
 ## 003. Third application
 
+Create another application that uses `pendulum`.
+
 ### Check dependencies of `console-app`
 
 ```shell
@@ -21,7 +23,7 @@ pants peek src/python/console-app/console_app/util/util.py
 
 You can see that `console-app` depends on `src/python/console-app:poetry#pendulum`.
 
-Create `console2-app` using poetry.
+### Create `console2-app` using poetry
 
 ```shell
 cd src/python
@@ -71,6 +73,8 @@ EOF
 ```shell
 pants tailor ::
 ```
+
+### Run application
 
 ```shell
 pants run src/python/console-app/console_app/main.py
@@ -135,6 +139,8 @@ python_sources(
 )
 EOF
 ```
+
+### Run application again
 
 ```shell
 pants run src/python/console-app/console_app/main.py

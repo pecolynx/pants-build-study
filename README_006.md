@@ -1,6 +1,8 @@
 # pants-build-study
 
-## 006. 
+## 006. Use Lockfiles
+
+https://www.pantsbuild.org/docs/python-lockfiles
 
 Add the below line to `python` section in `pants.toml` file.
 
@@ -54,8 +56,6 @@ pants generate-lockfiles ::
 
 
 Use lockfile to specify version for each requirement set.
-
-https://www.pantsbuild.org/docs/python-lockfiles
 
 ### Generate lockfiles for old_app and others
 

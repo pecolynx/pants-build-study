@@ -2,7 +2,7 @@
 
 ## 005. Fifth application
 
-Create `grpc-client` using poetry.
+### Create `grpc-client` using poetry.
 
 ```shell
 cd src/python
@@ -58,11 +58,15 @@ rm -rf ./dist
 pants package ::
 ```
 
+### Run gRPC server.
+
 Run gRPC server.
 
 ```shell
 ./dist/src.python.grpc-server/grpc-server.pex
 ```
+
+### Run gRPC client
 
 Run gRPC client on another terminal.
 
