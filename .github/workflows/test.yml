@@ -1,0 +1,14 @@
+---
+on: [pull_request]
+name: Test
+jobs:
+  test_python:
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Test
+        run: "pants test ::"
+      - name: Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: dist/coverage/coverage.xml
