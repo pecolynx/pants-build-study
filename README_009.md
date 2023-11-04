@@ -1,3 +1,16 @@
+## 9. Test
+
+https://www.pantsbuild.org/docs/reference-pytest
+
+
+### Add test code
+
+```shell
+mkdir -p src/python/console-app/tests/util
+```
+
+```python
+cat <<EOF > src/python/console-app/tests/util/util_test.py
 from console_app.util.util import now
 import pendulum
 
@@ -5,13 +18,24 @@ import pendulum
 def test_now():
     x = now()
     assert isinstance(x, pendulum.DateTime)
-
-
-
-
-
-
+EOF
 ```
+
+### Update pants.toml
+
+Add the below codes to `pants.toml` file.
+
+```toml
+[test]
+use_coverage = true
+
+[coverage-py]
+report = "xml"
+```
+
+
+```toml
+cat <<EOF > pants.toml
 [GLOBAL]
 pants_version = "2.17.0"
 
@@ -48,6 +72,12 @@ root_patterns = [
     "/src/protos",
 ]
 
+[test]
+use_coverage = true
+
+[coverage-py]
+report = "xml"
+
 [black]
 config = "build-support/pyproject.toml"
 
@@ -64,20 +94,34 @@ mypy_plugin = true
 config = "build-support/pyproject.toml"
 install_from_resolve = "mypy"
 requirements = ["//3rdparty/python:mypy"]
-
-# [mypy-protobuf]
-# # version = "mypy-protobuf==2.10"
-# config = "build-support/pyproject.toml"
-# # lockfile = "build-support/mypy_protobuf_lockfile.txt"
-
+EOF
 ```
 
-pants generate-lockfiles ::
+### Test
 
+```shell
 pants tailor ::
-
 pants test ::
+```
+
+**Output:**
+```
+Name                                              Stmts   Miss  Cover
+---------------------------------------------------------------------
+src/python/console-app/console_app/__init__.py        0      0   100%
+src/python/console-app/console_app/util/util.py       3      0   100%
+src/python/console-app/tests/__init__.py              0      0   100%
+src/python/console-app/tests/util/util_test.py        5      0   100%
+---------------------------------------------------------------------
+TOTAL                                                 8      0   100%
 
 
-https://www.pantsbuild.org/docs/reference-pytest
+Wrote xml coverage report to `dist/coverage/python`
+```
 
+
+Check if a report file is created.
+
+```shell
+ls dist/coverage/python
+```
