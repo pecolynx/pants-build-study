@@ -1,6 +1,4 @@
 import pendulum
-from pendulum.datetime import DateTime
 
-
-def now() -> DateTime:
+def now():
     return pendulum.now("Europe/Paris")

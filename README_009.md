@@ -1,3 +1,17 @@
+from console_app.util.util import now
+import pendulum
+
+
+def test_now():
+    x = now()
+    assert isinstance(x, pendulum.DateTime)
+
+
+
+
+
+
+```
 [GLOBAL]
 pants_version = "2.17.0"
 
@@ -24,7 +38,7 @@ default_resolve = "default"
 [python.resolves]
 default = "3rdparty/python/default.lock"
 mypy = "3rdparty/python/mypy.lock"
-# pytest = "3rdparty/python/pytest.lock"
+pytext = "3rdparty/python/pytest.lock"
 old_app = "3rdparty/python/old_app.lock"
 grpc_client = "3rdparty/python/grpc_client.lock"
 
@@ -33,9 +47,6 @@ root_patterns = [
     "/src/python/*",
     "/src/protos",
 ]
-
-[test]
-use_coverage = true
 
 [black]
 config = "build-support/pyproject.toml"
@@ -54,13 +65,19 @@ config = "build-support/pyproject.toml"
 install_from_resolve = "mypy"
 requirements = ["//3rdparty/python:mypy"]
 
-# [pytest]
-# config = "build-support/pyproject.toml"
-# config = "build-support/pytest.ini"
-# install_from_resolve = "pytest"
-# requirements = ["//3rdparty/python:pytest"]
-
 # [mypy-protobuf]
 # # version = "mypy-protobuf==2.10"
 # config = "build-support/pyproject.toml"
 # # lockfile = "build-support/mypy_protobuf_lockfile.txt"
+
+```
+
+pants generate-lockfiles ::
+
+pants tailor ::
+
+pants test ::
+
+
+https://www.pantsbuild.org/docs/reference-pytest
+
