@@ -1,8 +1,9 @@
 [GLOBAL]
-pants_version = "2.17.0"
+pants_version = "2.19.0"
 
 backend_packages = [
     "pants.backend.python",
+    "pants.backend.python.mixed_interpreter_constraints",
     "pants.backend.python.lint.bandit",
     "pants.backend.python.lint.black",
     "pants.backend.python.lint.docformatter",
@@ -17,7 +18,7 @@ backend_packages = [
 ]
 
 [python]
-interpreter_constraints = [">=3.11,<3.12"]
+interpreter_constraints = ["CPython>=3.9,<4"]
 enable_resolves = true
 default_resolve = "default"
 
@@ -27,6 +28,10 @@ mypy = "3rdparty/python/mypy.lock"
 # pytest = "3rdparty/python/pytest.lock"
 old_app = "3rdparty/python/old_app.lock"
 grpc_client = "3rdparty/python/grpc_client.lock"
+grpc_client_3_10 = "3rdparty/python/grpc_client_3_10.lock"
+
+[python-infer]
+ambiguity_resolution = "by_source_root"
 
 [source]
 root_patterns = [

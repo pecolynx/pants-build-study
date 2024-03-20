@@ -8,3 +8,9 @@ protobuf_sources(
     grpc=True,
     python_resolve="grpc_client",
 )
+
+protobuf_sources(
+    name="grpc_client_3_10",
+    grpc=True,
+    python_resolve="grpc_client_3_10",
+)
